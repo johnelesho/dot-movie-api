@@ -1,9 +1,10 @@
 using DotMovie.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotMovie;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext
 {
 
 
@@ -33,5 +34,7 @@ public class AppDbContext : DbContext
     public DbSet<MoviesActors> MoviesActors { get; set; }
     public DbSet<MoviesGenres> MoviesGenres { get; set; }
     public DbSet<MovieTheatersMovies> MovieTheatersMovies { get; set; }
+    
+    public DbSet<Rating> Ratings { get; set; }
 
 }

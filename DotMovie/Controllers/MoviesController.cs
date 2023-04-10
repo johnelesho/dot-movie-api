@@ -10,11 +10,15 @@ using DotMovie;
 using DotMovie.Dtos;
 using DotMovie.Entities;
 using DotMovie.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotMovie.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy="IsAdmin")]
+
     public class MoviesController : ControllerBase
     {
         private readonly AppDbContext context;
@@ -32,6 +36,7 @@ namespace DotMovie.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<HomeDto>> Get()
         { 
             const int top = 6;
@@ -58,6 +63,7 @@ namespace DotMovie.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<MovieDto>> Get(int id)
         {
             var movie = await context.Movies
@@ -77,6 +83,7 @@ namespace DotMovie.Controllers
         }
 
         [HttpGet("filter")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<MovieDto>>> Filter([FromQuery] FilterMoviesDto filterMoviesDto)
         {
             var moviesQueryable = context.Movies.AsQueryable();

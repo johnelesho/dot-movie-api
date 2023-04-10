@@ -10,11 +10,15 @@ using DotMovie;
 using DotMovie.Dtos;
 using DotMovie.Entities;
 using DotMovie.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Server.HttpSys;
 
 namespace DotMovie.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy="IsAdmin")]
     public class ActorsController : ControllerBase
     {
         private readonly AppDbContext _context;

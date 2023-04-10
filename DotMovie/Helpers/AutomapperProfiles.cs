@@ -1,6 +1,7 @@
 using AutoMapper;
 using DotMovie.Dtos;
 using DotMovie.Entities;
+using Microsoft.AspNetCore.Identity;
 using NetTopologySuite.Geometries;
 
 namespace DotMovie.Helpers;
@@ -28,6 +29,7 @@ public class AutomapperProfiles : Profile
             .ForMember(x => x.MovieTheatersMovies, options => options.MapFrom(MapMovieTheatersMovies))
             .ForMember(x => x.MoviesActors, options => options.MapFrom(MapMoviesActors));
 
+        CreateMap<IdentityUser, UserDto>();
     }
     
         private List<ActorsMovieDto> MapMoviesActors(Movie movie, MovieDto movieDto)

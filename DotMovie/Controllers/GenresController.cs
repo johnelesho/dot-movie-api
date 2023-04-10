@@ -10,11 +10,14 @@ using DotMovie;
 using DotMovie.Dtos;
 using DotMovie.Entities;
 using DotMovie.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DotMovie.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy="IsAdmin")]
     public class GenresController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -30,6 +33,7 @@ namespace DotMovie.Controllers
 
         // GET: api/Genres
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenres()
         {
             _logger.LogInformation("Getting all the genres");
